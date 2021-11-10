@@ -4,15 +4,13 @@ class Alacritty < Formula
   head "https://github.com/alacritty/alacritty.git"
 
   depends_on "cmake" => :build
-  depends_on "fontconfig"
-  depends_on "rustup-init"
+  depends_on "fontconfig" => :build
+  depends_on "rust" => :build
 
   def install
-    system "rustup", "update"
-    system "rustup", "target add aarch64-apple-darwin"
     system "cargo", "check --target=aarch64-apple-darwin"
 
-    system "make", "dmg-universal"
+    system "make", "app"
 
     (prefix / "Applications").install "target/release/osx/Alacritty.app"
     bin.install "target/release/alacritty"
@@ -26,12 +24,18 @@ class Alacritty < Formula
 
         /usr/local/share/alacritty/alacritty_macos.yml
 
-      You can copy this file to ~/.alacritty.yml and edit as you please.
+      You can copy this file to ~/.config/alacritty/alacritty.yml and edit as you please.
 
-      For the best experience, you should install/update alacritty's terminfo
-      file after each update. You can do so by running the following command:
+      Terminfo: To make sure Alacritty works correctly, either the alacritty or alacritty-direct terminfo must be used.
+      The alacritty terminfo will be picked up automatically if it is installed.
 
-        sudo tic -e alacritty,alacritty-direct /usr/local/share/alacritty/alacritty.info
+      If the following command returns without any errors, the alacritty terminfo is already installed:
+
+        infocmp alacritty
+
+      If it is not present already, you can install it globally with the following command:
+
+        sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
 
       WARNING: This formula can't install into /Applications, the application
       has been installed to:
@@ -41,7 +45,7 @@ class Alacritty < Formula
       This path is stable across upgrades, you can create your own symlink in
       the global /Applications folder as follows:
 
-        ln -s #{prefix / "Applications/Alacritty.app"} /Applications/
+        cp -r #{prefix / "Applications/Alacritty.app"} /Applications/
     EOS
 
     msg
