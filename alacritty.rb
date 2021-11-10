@@ -18,15 +18,7 @@ class Alacritty < Formula
 
   def caveats
     msg = <<~EOS
-      Although it is possible that the default configuration will work on your
-      system, you will probably end up wanting to customize it anyhow. You can
-      find a copy of the default configuration at:
-
-        /usr/local/share/alacritty/alacritty_macos.yml
-
-      You can copy this file to ~/.config/alacritty/alacritty.yml and edit as you please.
-
-      Terminfo: To make sure Alacritty works correctly, either the alacritty or alacritty-direct terminfo must be used.
+      To make sure Alacritty works correctly, either the alacritty or alacritty-direct terminfo must be used.
       The alacritty terminfo will be picked up automatically if it is installed.
 
       If the following command returns without any errors, the alacritty terminfo is already installed:
@@ -52,6 +44,6 @@ class Alacritty < Formula
   end
 
   test do
-    system "false"
+    assert_match "alacritty 0.10.0-dev (#{revision})", shell_output("#{bin}/alacritty --version")
   end
 end
