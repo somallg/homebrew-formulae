@@ -8,7 +8,7 @@ class Alacritty < Formula
   depends_on "rust" => :build
 
   def install
-    system "cargo", "check --target=aarch64-apple-darwin"
+    system "cargo", "check", "--target=aarch64-apple-darwin"
 
     system "make", "app"
 
