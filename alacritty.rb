@@ -3,9 +3,9 @@ class Alacritty < Formula
   homepage "https://github.com/alacritty/alacritty"
   head "https://github.com/alacritty/alacritty.git"
 
-  depends_on "cmake" => :build
-  depends_on "fontconfig" => :build
-  depends_on "rust" => :build
+  depends_on "cmake"
+  depends_on "fontconfig"
+  depends_on "rust"
 
   def install
     system "cargo", "check", "--target=aarch64-apple-darwin"
@@ -44,6 +44,6 @@ class Alacritty < Formula
   end
 
   test do
-    assert_match "alacritty 0.10.0-dev (#{revision})", shell_output("#{bin}/alacritty --version")
+    assert_match(/^alacritty 0.10.0-dev/, shell_output("#{bin}/alacritty --version"))
   end
 end
