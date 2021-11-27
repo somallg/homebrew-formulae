@@ -1,23 +1,26 @@
-class Alacritty < Formula
-  desc "A cross-platform, OpenGL terminal emulator"
-  homepage "https://github.com/alacritty/alacritty"
-  head "https://github.com/alacritty/alacritty.git"
+# frozen_string_literal: true
 
-  depends_on "cmake"
-  depends_on "fontconfig"
-  depends_on "rust"
+# Alacritty
+class Alacritty < Formula
+  desc 'A cross-platform, OpenGL terminal emulator'
+  homepage 'https://github.com/alacritty/alacritty'
+  head 'https://github.com/alacritty/alacritty.git'
+
+  depends_on 'cmake'
+  depends_on 'fontconfig'
+  depends_on 'rust'
 
   def install
-    system "cargo", "check", "--target=aarch64-apple-darwin"
+    system 'cargo', 'check', '--target=aarch64-apple-darwin'
 
-    system "make", "app"
+    system 'make', 'app'
 
-    (prefix / "Applications").install "target/release/osx/Alacritty.app"
-    bin.install "target/release/alacritty"
+    (prefix / 'Applications').install 'target/release/osx/Alacritty.app'
+    bin.install 'target/release/alacritty'
   end
 
   def caveats
-    msg = <<~EOS
+    <<~DOC
       To make sure Alacritty works correctly, either the alacritty or alacritty-direct terminfo must be used.
       The alacritty terminfo will be picked up automatically if it is installed.
 
@@ -32,15 +35,13 @@ class Alacritty < Formula
       WARNING: This formula can't install into /Applications, the application
       has been installed to:
 
-        #{prefix / "Applications/Alacritty.app"}
+        #{prefix / 'Applications/Alacritty.app'}
 
       This path is stable across upgrades, you can create your own symlink in
       the global /Applications folder as follows:
 
-        cp -r #{prefix / "Applications/Alacritty.app"} /Applications/
-    EOS
-
-    msg
+        cp -r #{prefix / 'Applications/Alacritty.app'} /Applications/
+    DOC
   end
 
   test do
