@@ -9,6 +9,11 @@ class Neovide < Formula
   depends_on 'cmake'
   depends_on 'rust'
 
+  patch do
+    url 'https://raw.githubusercontent.com/somallg/homebrew-formulae/develop/patches/neovide/1217.patch'
+    sha256 '624c541a43477417a88cb25e814872131e055dfa833af35d4e932caefde70a15'
+  end
+
   def install
     system 'cargo', 'check', '--target=aarch64-apple-darwin'
 
