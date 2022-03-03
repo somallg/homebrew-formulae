@@ -35,6 +35,6 @@ class Neovide < Formula
   end
 
   test do
-    assert_match(/^neovide 0.8.0/, shell_output("#{bin}/neovide --version"))
+    assert_match(/^Neovide 0.8.0/, shell_output("#{bin}/neovide --version"))
   end
 end
